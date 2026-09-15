@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["vite/client", "node"],
+    "paths": {
+      "@/mock": ["./src/mock/index.tsx"],
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src", "apps/*/src", "apps/*/vite.config.ts", "test", "*.config.ts"]
+}

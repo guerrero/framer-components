@@ -1,0 +1,53 @@
+{
+  "name": "framer-components",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm --filter @repo/playground dev",
+    "build": "pnpm --filter @repo/playground build",
+    "preview": "pnpm --filter @repo/playground preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tools/framer-sync/tsconfig.json --noEmit",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "fmt": "oxfmt",
+    "fmt:check": "oxfmt --check",
+    "check": "pnpm lint && pnpm fmt:check && pnpm typecheck && pnpm test",
+    "framer:sync": "tsx tools/framer-sync/src/cli.ts",
+    "framer:check": "tsx tools/framer-sync/src/cli.ts --check",
+    "framer:typecheck": "tsx tools/framer-sync/src/cli.ts --typecheck",
+    "framer:install": "tsx tools/framer-sync/src/cli.ts --agent",
+    "framer:install:check": "tsx tools/framer-sync/src/cli.ts --agent --check"
+  },
+  "dependencies": {
+    "framer": "catalog:",
+    "framer-motion": "catalog:"
+  },
+  "devDependencies": {
+    "@framer/agent": "catalog:",
+    "@testing-library/dom": "catalog:",
+    "@testing-library/jest-dom": "catalog:",
+    "@testing-library/react": "catalog:",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@vitejs/plugin-react": "catalog:",
+    "jsdom": "catalog:",
+    "oxfmt": "catalog:",
+    "oxlint": "catalog:",
+    "oxlint-tsgolint": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "tsx": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:"
+  },
+  "engines": {
+    "node": ">=22.12.0",
+    "pnpm": ">=10"
+  },
+  "packageManager": "pnpm@11.20.0"
+}

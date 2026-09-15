@@ -1,0 +1,17 @@
+{
+  "name": "@repo/framer-sync",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "tsx src/cli.ts",
+    "check": "tsx src/cli.ts --check"
+  },
+  "dependencies": {
+    "framer-api": "catalog:"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "tsx": "catalog:"
+  }
+}

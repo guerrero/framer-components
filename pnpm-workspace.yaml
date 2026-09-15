@@ -1,0 +1,38 @@
+packages:
+  - apps/*
+  - tools/*
+
+allowBuilds:
+  esbuild: true
+
+# Single source of truth for dependency versions across the monorepo.
+# Reference these from any package.json with `"dep": "catalog:"`.
+catalog:
+  "@framer/agent": 0.0.44
+  "@testing-library/dom": ^10.4.0
+  "@testing-library/jest-dom": ^7.0.1
+  "@testing-library/react": ^16.3.3
+  "@types/node": ^24.13.4
+  "@types/react": ^18.3.31
+  "@types/react-dom": ^18.3.7
+  "@vitejs/plugin-react": ^6.1.1
+  framer: 3.0.4
+  framer-api: ^5.0.0
+  # Matches the version the Framer runtime ships (see framer's deps).
+  framer-motion: 12.34.3
+  jsdom: ^30.0.1
+  oxfmt: ^0.68.0
+  oxlint: ^1.83.0
+  oxlint-tsgolint: ^7.0.2001
+  # Framer code components run on React 18.
+  react: 18.3.1
+  react-dom: 18.3.1
+  tsx: ^4.23.13
+  typescript: ^5.9.3
+  vite: ^8.3.0
+  vitest: ^5.0.1
+
+minimumReleaseAgeExclude:
+  - "@vitest/mocker@5.0.1"
+  - "@vitest/spy@5.0.1"
+  - vitest@5.0.1

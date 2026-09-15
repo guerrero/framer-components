@@ -1,0 +1,13 @@
+extends: default
+
+rules:
+  # Workflow files routinely carry 40-char SHA pins plus a version comment.
+  line-length:
+    max: 120
+  document-start: disable
+  # GitHub Actions uses `on:` as a key; quoting it is not required.
+  truthy:
+    check-keys: false
+  # `uses: owner/repo@sha # v1.2.3` is the standard pinning comment style.
+  comments:
+    min-spaces-from-content: 1
