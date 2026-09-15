@@ -1,9 +1,14 @@
-import type { ReactNode } from "react";
+import type { ComponentType, ReactNode } from "react";
 
 import FadeIn from "@/components/FadeIn";
+import FeatureScroll from "@/components/FeatureScroll";
 import PillButton from "@/components/PillButton";
+import SlideshowCMS from "@/components/SlideshowCMS";
+import TabItem from "@/components/TabItem";
+import Tabs from "@/components/Tabs";
 import { Frame, getPropertyControls } from "@/mock";
 import { withHoverLift } from "@/overrides/withHoverLift";
+import { withNavbarScrollVariant } from "@/overrides/withNavbarScrollVariant";
 import { withPointer } from "@/overrides/withPointer";
 
 function DemoCard() {
@@ -13,6 +18,21 @@ function DemoCard() {
 }
 
 const InteractiveCard = withPointer(withHoverLift(DemoCard));
+
+function NavbarProbe({ variant }: { variant?: string }) {
+  return (
+    <Frame style={{ padding: 16, borderRadius: 12, backgroundColor: "#E0E7FF" }}>
+      Navbar variant: {variant ?? "unset"} (scroll the page)
+    </Frame>
+  );
+}
+
+const ScrollNavbarProbe: ComponentType<{ variant?: string }> = withNavbarScrollVariant(NavbarProbe);
+
+const demoSlides = [
+  { title: "Paperwork", description: "Handles your paperwork." },
+  { title: "In the loop", description: "Always up to date." },
+];
 
 function Section({
   title,
@@ -92,6 +112,59 @@ export default function App() {
         </FadeIn>
       </Section>
 
+      <Section title="Tabs" description="TabItem layers linked through the Content items slot.">
+        <div style={{ height: 320, width: "100%" }}>
+          <Tabs
+            contents={[
+              <TabItem
+                key="first"
+                tabName="First"
+                content={
+                  <div style={{ padding: 24, borderRadius: 16, background: "#F2F3EE" }}>
+                    First panel
+                  </div>
+                }
+              />,
+              <TabItem
+                key="second"
+                tabName="Second"
+                content={
+                  <div style={{ padding: 24, borderRadius: 16, background: "#FFF7DB" }}>
+                    Second panel
+                  </div>
+                }
+              />,
+            ]}
+          />
+        </div>
+      </Section>
+
+      <Section title="FeatureScroll" description="Scroll-driven feature cards (static preview).">
+        <div style={{ width: "100%" }}>
+          <FeatureScroll slides={demoSlides} />
+        </div>
+      </Section>
+
+      <Section title="SlideshowCMS" description="Carousel over connected collection items.">
+        <div style={{ width: "100%", maxWidth: 640 }}>
+          <SlideshowCMS>
+            {["#F2F3EE", "#FFF7DB", "#EEF2FF"].map((fill, index) => (
+              <div
+                key={fill}
+                style={{
+                  padding: 48,
+                  borderRadius: 24,
+                  background: fill,
+                  textAlign: "center",
+                }}
+              >
+                Slide {index + 1}
+              </div>
+            ))}
+          </SlideshowCMS>
+        </div>
+      </Section>
+
       <Section
         title="Overrides"
         description="withPointer(withHoverLift(DemoCard)) — hover the card."
@@ -100,11 +173,22 @@ export default function App() {
       </Section>
 
       <Section
+        title="Navbar scroll variant"
+        description="withNavbarScrollVariant(NavbarProbe) — scroll the page past 1px."
+      >
+        <ScrollNavbarProbe variant="Desktop" />
+      </Section>
+
+      <Section
         title="Registered property controls"
         description="What the playground reads back from the mock."
       >
         <ControlList component={PillButton} name="PillButton" />
         <ControlList component={FadeIn} name="FadeIn" />
+        <ControlList component={Tabs} name="Tabs" />
+        <ControlList component={TabItem} name="Tab Item" />
+        <ControlList component={FeatureScroll} name="Feature Scroll" />
+        <ControlList component={SlideshowCMS} name="CMS Slideshow" />
       </Section>
     </main>
   );
