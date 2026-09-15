@@ -2,7 +2,7 @@ import { spawn } from "node:child_process";
 import { existsSync } from "node:fs";
 import path from "node:path";
 
-import type { LocalCodeFile, SyncOutcome } from "./sync.ts";
+import type { LocalCodeFile, SyncOutcome, SyncStatus } from "./sync.ts";
 
 /**
  * Install code files through the `@framer/agent` CLI.
@@ -128,6 +128,35 @@ function runAgentCli(
   });
 }
 
+const SYNC_STATUSES: ReadonlySet<string> = new Set<SyncStatus>([
+  "created",
+  "updated",
+  "unchanged",
+  "would-create",
+  "would-update",
+  "blocked",
+]);
+
+function isSyncOutcome(value: unknown): value is SyncOutcome {
+  if (typeof value !== "object" || value === null) return false;
+  if (!("remotePath" in value && "status" in value && "exports" in value && "errors" in value)) {
+    return false;
+  }
+  const remotePath = value.remotePath;
+  const status = value.status;
+  const exports = value.exports;
+  const errors = value.errors;
+  return (
+    typeof remotePath === "string" &&
+    typeof status === "string" &&
+    SYNC_STATUSES.has(status) &&
+    Array.isArray(exports) &&
+    exports.every((item: unknown) => typeof item === "string") &&
+    Array.isArray(errors) &&
+    errors.every((item: unknown) => typeof item === "string")
+  );
+}
+
 function parseResult(result: AgentRunResult): SyncOutcome[] {
   const line = result.stdout.split("\n").find((entry) => entry.startsWith(RESULT_MARKER));
 
@@ -139,19 +168,32 @@ function parseResult(result: AgentRunResult): SyncOutcome[] {
     );
   }
 
+  let parsed: unknown;
   try {
-    return JSON.parse(line.slice(RESULT_MARKER.length)) as SyncOutcome[];
+    parsed = JSON.parse(line.slice(RESULT_MARKER.length));
   } catch (error) {
-    throw new Error(`Could not parse the agent exec result: ${String(error)}`);
+    throw new Error(`Could not parse the agent exec result: ${String(error)}`, { cause: error });
   }
+
+  if (!Array.isArray(parsed)) {
+    throw new Error("The agent exec result was not an array of sync outcomes.");
+  }
+
+  const outcomes: SyncOutcome[] = [];
+  for (const entry of parsed) {
+    if (!isSyncOutcome(entry)) {
+      throw new Error("The agent exec result contained an unexpected sync outcome.");
+    }
+    outcomes.push(entry);
+  }
+  return outcomes;
 }
 
 function lastNonEmptyLine(output: string): string | undefined {
   return output
     .split("\n")
     .map((line) => line.trim())
-    .filter(Boolean)
-    .at(-1);
+    .findLast(Boolean);
 }
 
 /**
