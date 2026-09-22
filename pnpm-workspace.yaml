@@ -19,7 +19,7 @@ catalog:
   framer: 3.0.4
   framer-api: ^5.0.0
   # Matches the version the Framer runtime ships (see framer's deps).
-  framer-motion: 12.34.3
+  framer-motion: 13.3.0
   jsdom: ^30.0.1
   oxfmt: ^0.68.0
   oxlint: ^1.83.0
