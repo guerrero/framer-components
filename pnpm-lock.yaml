@@ -7,8 +7,8 @@ settings:
 catalogs:
   default:
     '@framer/agent':
-      specifier: 0.0.44
-      version: 0.0.44
+      specifier: 0.0.45
+      version: 0.0.45
     '@testing-library/dom':
       specifier: ^10.4.0
       version: 10.4.2
@@ -83,7 +83,7 @@ importers:
     devDependencies:
       '@framer/agent':
         specifier: 'catalog:'
-        version: 0.0.44(csstype@3.2.3)(typescript@5.9.3)
+        version: 0.0.45(csstype@3.2.3)(typescript@5.9.3)
       '@testing-library/dom':
         specifier: 'catalog:'
         version: 10.4.2
@@ -401,8 +401,8 @@ packages:
       '@noble/hashes':
         optional: true
 
-  '@framer/agent@0.0.44':
-    resolution: {integrity: sha512-ipKeHhds5a3UxksQC4YAyoEu+hlnM2hYKQ9+QTBJT50abjjsujphg/IsXNmQkrkjxJWnRtOK/GFW6XdvGuw2zg==}
+  '@framer/agent@0.0.45':
+    resolution: {integrity: sha512-lVZ422ga/NE05Gv85MdzUi1MmXeZ6siMctzOT92UZdFIDbhE3pJB0B23DJsDzMtFEACNZEDx/xNRioWGZK0Cxg==}
     engines: {node: '>=22'}
     hasBin: true
 
@@ -981,12 +981,6 @@ packages:
     peerDependenciesMeta:
       picomatch:
         optional: true
-
-  framer-api@0.1.29:
-    resolution: {integrity: sha512-LRWUT7P/QmyriCJiReH5vCdyLZCIsy9DgTtQ2jldoVsYsaXt4QtPV5jBHPNRmbvGCAkQmFfQXrH0fKTxjbWmQA==}
-    engines: {node: '>=22'}
-    peerDependencies:
-      csstype: ^3.1.1
 
   framer-api@5.0.0:
     resolution: {integrity: sha512-fArpiJ29xpCpi9q70e+aZbn9t2S23QfE4B0eLURFQMZ0EDa8Nu1c523+usAiZA+IRMgvixz/3lwYc2XOY8G+dw==}
@@ -1577,12 +1571,12 @@ snapshots:
 
   '@exodus/bytes@1.15.1': {}
 
-  '@framer/agent@0.0.44(csstype@3.2.3)(typescript@5.9.3)':
+  '@framer/agent@0.0.45(csstype@3.2.3)(typescript@5.9.3)':
     dependencies:
       '@trpc/client': 11.18.0(@trpc/server@11.18.0(typescript@5.9.3))(typescript@5.9.3)
       '@trpc/server': 11.18.0(typescript@5.9.3)
       commander: 12.1.0
-      framer-api: 0.1.29(csstype@3.2.3)
+      framer-api: 5.0.0(csstype@3.2.3)
       is-wsl: 3.1.1
       zod: 4.6.5
     transitivePeerDependencies:
@@ -1953,12 +1947,6 @@ snapshots:
   fdir@6.5.0(picomatch@4.0.7):
     optionalDependencies:
       picomatch: 4.0.7
-
-  framer-api@0.1.29(csstype@3.2.3):
-    dependencies:
-      csstype: 3.2.3
-      devalue: 5.9.2
-      std-env: 4.2.0
 
   framer-api@5.0.0(csstype@3.2.3):
     dependencies:
